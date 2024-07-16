@@ -1,6 +1,6 @@
 {
-  "name": "ngx-word-morph",
-  "version": "0.0.1",
+  "name": "@omnedia/ngx-word-morph",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^17.3.0",
     "@angular/core": "^17.3.0"
@@ -8,5 +8,17 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "keywords": [
+    "rxjs",
+    "npm",
+    "morph",
+    "text",
+    "animation"
+  ],
+  "repository": {
+    "url": "https://github.com/omnedia/ngx-word-morph"
+  },
+  "author": "Markus Block (markus.block@omnedia.com)",
+  "license": "MIT"
 }

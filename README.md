@@ -1,24 +1,68 @@
-# NgxWordMorph
+# Ngx Word-Morph Component
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+`@omnedia/ngx-word-morph` is an Angular library designed to facilitate word morphing animations within Angular applications.
 
-## Code scaffolding
+## Features
+- Morph words within your Angular application.
+- Easily customizable.
 
-Run `ng generate component component-name --project ngx-word-morph` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-word-morph`.
-> Note: Don't forget to add `--project ngx-word-morph` or else it will be added to the default project in your `angular.json` file. 
+## Installation
 
-## Build
+Install the library using npm:
 
-Run `ng build ngx-word-morph` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+npm install @omnedia/ngx-word-morph
+```
 
-## Publishing
+## Usage
 
-After building your library with `ng build ngx-word-morph`, go to the dist folder `cd dist/ngx-word-morph` and run `npm publish`.
+Import the `NgxWordMorphComponent` in your Angular module:
 
-## Running unit tests
+```typescript
+import { NgxWordMorphComponent } from '@omnedia/ngx-word-morph';
 
-Run `ng test ngx-word-morph` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@Component({
+  ...
+  imports: [
+    ...
+    NgxWordMorphComponent,
+  ],
+  ...
+})
+```
 
-## Further help
+Use the component in your template:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```html
+<om-word-morph [words]="['Hello', 'World']" styleClass="custom-class"></om-word-morph>
+```
+
+## API
+
+```html
+<om-word-morph
+  [words]="words"
+  [morphDuration]="morphDuration"
+  [morphDelay]="morphDelay"
+  styleClass="your-custom-class"
+></om-word-morph>
+```
+
+Starts the word morphing effect.
+
+- `words`: An array of strings to be animated.
+- `morphDuration`: (optional): The duration of the morphing animation in milliseconds. Default is 1000.
+- `morphDelay`: (optional): The delay between morphing one word to the next in milliseconds. Default is 5000.
+- `styleClass`: (optional): Add a class to the `<div>` wrapper tag.
+
+## Styling
+If you want to style the text, do it globally via the `styleClass`. <br>
+To change the font size make sure to change the `--om-word-morph-font-size` variable instead of directly changing the size.
+
+## Contributing
+
+Contributions are welcome. Please submit a pull request or open an issue to discuss your ideas.
+
+## License
+
+This project is licensed under the MIT License.

@@ -1,0 +1,22 @@
+<div class="om-word-morph" [ngClass]="styleClass">
+  <div id="words" class="words">
+    <p id="text1"></p>
+    <p id="text2"></p>
+    <p class="accessibility">{{ activeWord }}</p>
+  </div>
+
+  <svg id="filters">
+    <defs>
+      <filter id="threshold">
+        <feColorMatrix
+          in="SourceGraphic"
+          type="matrix"
+          values="1 0 0 0 0
+                                          0 1 0 0 0
+                                          0 0 1 0 0
+                                          0 0 0 255 -140"
+        />
+      </filter>
+    </defs>
+  </svg>
+</div>

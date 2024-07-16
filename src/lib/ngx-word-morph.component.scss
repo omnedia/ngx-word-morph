@@ -1,0 +1,46 @@
+.om-word-morph {
+  --om-word-morph-font-size: 8rem;
+
+  width: fit-content;
+  position: relative;
+
+  .words {
+    position: relative;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    top: 0;
+    bottom: 0;
+
+    -webkit-transition: 1s -webkit-filter linear;
+    -moz-transition: 1s -moz-filter linear;
+    -moz-transition: 1s filter linear;
+    -ms-transition: 1s -ms-filter linear;
+    -o-transition: 1s -o-filter linear;
+    transition: 1s filter linear, 1s -webkit-filter linear;
+
+    p {
+      margin: 0;
+    }
+
+    .accessibility {
+      font-size: var(--om-word-morph-font-size);
+      visibility: hidden;
+    }
+
+    #text1,
+    #text2 {
+      position: absolute;
+      width: 100%;
+      display: inline-block;
+      user-select: none;
+      font-size: var(--om-word-morph-font-size);
+    }
+  }
+
+  #filters {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+}
