@@ -1,8 +1,17 @@
 # Ngx Word-Morph Component
 
+<a href="https://ngxui.com" target="_blank" style="display: flex;gap: .5rem;align-items: center;cursor: pointer; padding: 0 0 0 0; height: fit-content;">
+  <img src="https://ngxui.com/assets/img/ngxui-logo.png" style="width: 64px;height: 64px;">
+  <p style="font-weight: bold; padding: 0; margin: 0; font-size: 4rem">NGXUI</p>
+</a>
+
+This Library is part of the NGXUI ecosystem. <br>
+View all available components at https://ngxui.com
+
 `@omnedia/ngx-word-morph` is an Angular library designed to facilitate word morphing animations within Angular applications.
 
 ## Features
+
 - Morph words within your Angular application.
 - Easily customizable.
 
@@ -19,27 +28,30 @@ npm install @omnedia/ngx-word-morph
 Import the `NgxWordMorphComponent` in your Angular module:
 
 ```typescript
-import { NgxWordMorphComponent } from '@omnedia/ngx-word-morph';
+import {NgxWordMorphComponent} from '@omnedia/ngx-word-morph';
 
 @Component({
   ...
-  imports: [
-    ...
-    NgxWordMorphComponent,
-  ],
+    imports:
+[
   ...
+    NgxWordMorphComponent,
+],
+...
 })
 ```
 
 Use the component in your template:
 
 ```html
+
 <om-word-morph [words]="['Hello', 'World']" styleClass="custom-class"></om-word-morph>
 ```
 
 ## API
 
 ```html
+
 <om-word-morph
   [words]="words"
   [morphDuration]="morphDuration"
@@ -56,6 +68,7 @@ Starts the word morphing effect.
 - `styleClass`: (optional): Add a class to the `<div>` wrapper tag.
 
 ## Styling
+
 If you want to style the text, do it globally via the `styleClass`. <br>
 To change the font size make sure to change the `--om-word-morph-font-size` variable instead of directly changing the size.
 
