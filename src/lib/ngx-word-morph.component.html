@@ -1,7 +1,7 @@
-<div class="om-word-morph" [ngClass]="styleClass">
-  <div id="words" class="words">
-    <p id="text1"></p>
-    <p id="text2"></p>
+<div class="om-word-morph" [ngClass]="styleClass" #OmWordMorphWrapper>
+  <div id="words" class="words" #words>
+    <p id="text1" #text1></p>
+    <p id="text2" #text2></p>
     <p class="accessibility">{{ activeWord }}</p>
   </div>
 

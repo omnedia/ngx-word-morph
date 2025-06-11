@@ -1,6 +1,18 @@
-import { CommonModule } from "@angular/common";
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { interval, of, repeat, Subject, takeUntil } from "rxjs";
+import {CommonModule, isPlatformBrowser} from "@angular/common";
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+  signal,
+  ViewChild
+} from "@angular/core";
+import {interval, of, repeat, Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: "om-word-morph",
@@ -8,8 +20,14 @@ import { interval, of, repeat, Subject, takeUntil } from "rxjs";
   imports: [CommonModule],
   templateUrl: "./ngx-word-morph.component.html",
   styleUrl: "./ngx-word-morph.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxWordMorphComponent implements OnInit, OnDestroy {
+export class NgxWordMorphComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("OmWordMorphWrapper") wordMorphRef!: ElementRef<HTMLElement>;
+  @ViewChild('words', {static: true}) wordsRef!: ElementRef<HTMLElement>;
+  @ViewChild('text1', {static: true}) text1Ref!: ElementRef<HTMLElement>;
+  @ViewChild('text2', {static: true}) text2Ref!: ElementRef<HTMLElement>;
+
   @Input("styleClass")
   styleClass?: string;
 
@@ -34,6 +52,14 @@ export class NgxWordMorphComponent implements OnInit, OnDestroy {
 
   private textIndex: number = 0;
 
+  isInView = signal(false);
+  private intersectionObserver?: IntersectionObserver;
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+  }
+
   ngOnInit(): void {
     if (!this.words || this.words.length <= 0) {
       throw new Error("om-word-morph: No words were passed to the component!");
@@ -44,9 +70,9 @@ export class NgxWordMorphComponent implements OnInit, OnDestroy {
     }
 
     this.elts = {
-      words: document.getElementById("words") as HTMLElement,
-      text1: document.getElementById("text1") as HTMLElement,
-      text2: document.getElementById("text2") as HTMLElement,
+      words: this.wordsRef.nativeElement,
+      text1: this.text1Ref.nativeElement,
+      text2: this.text2Ref.nativeElement,
     };
 
     this.fontSize = parseFloat(
@@ -60,9 +86,22 @@ export class NgxWordMorphComponent implements OnInit, OnDestroy {
     this.initMorph();
   }
 
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.intersectionObserver = new IntersectionObserver(([entry]) => {
+        this.isInView.set(entry.isIntersecting);
+      });
+      this.intersectionObserver.observe(this.wordMorphRef.nativeElement);
+    }
+  }
+
   destroy$ = new Subject<void>();
 
   ngOnDestroy(): void {
+    if (this.intersectionObserver) {
+      this.intersectionObserver.disconnect();
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -79,6 +118,10 @@ export class NgxWordMorphComponent implements OnInit, OnDestroy {
     interval(this.morphDelay + this.morphDuration)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
+        if (!this.isInView()) {
+          return;
+        }
+
         this.morphText();
       });
   }
@@ -95,7 +138,7 @@ export class NgxWordMorphComponent implements OnInit, OnDestroy {
 
     of([])
       .pipe(
-        repeat({ count: 100, delay: this.morphDuration / 100 }),
+        repeat({count: 100, delay: this.morphDuration / 100}),
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
